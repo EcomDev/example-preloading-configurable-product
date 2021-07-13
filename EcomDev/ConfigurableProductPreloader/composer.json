@@ -1,0 +1,21 @@
+{
+  "name": "ecomdev/magento2-configurable-preloader",
+  "version": "1.0.0",
+  "description": "Preloader for configurable data",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*",
+    "ecomdev/magento2-product-data-preloader": "*"
+  },
+  "license": [
+    "MIT"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "EcomDev\\ConfigurableProductPreloader\\": ""
+    }
+  }
+}

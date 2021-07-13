@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="EcomDev\ProductDataPreLoader\DataService\LoadService">
+        <arguments>
+            <argument name="loaders" xsi:type="array">
+                <item name="configurable_price" xsi:type="object">EcomDev\ConfigurableProductPreloader\Loader\ConfigurablePrice</item>
+                <item name="configurable_salable" xsi:type="object">EcomDev\ConfigurableProductPreloader\Loader\ConfigurableSalable</item>
+                <item name="configurable_tier_price" xsi:type="object">EcomDev\ConfigurableProductPreloader\Loader\ConfigurableTierPrice</item>
+            </argument>
+        </arguments>
+    </type>
+
+
+    <type name="Magento\ConfigurableProduct\Pricing\Price\ConfigurablePriceResolver">
+        <plugin
+            name="use_preloaded_final_price_of_the_product"
+            type="EcomDev\ConfigurableProductPreloader\Plugin\ConfigurablePriceResolverPlugin"
+        />
+    </type>
+
+    <type name="Magento\Catalog\Model\Product\Pricing\Renderer\SalableResolver">
+        <plugin name="configurable" disabled="true" />
+        <plugin
+            name="use_preloaded_inventory_for_check"
+            type="EcomDev\ConfigurableProductPreloader\Plugin\ConfigurableSalableCheckPlugin"
+        />
+    </type>
+
+    <type name="Magento\ConfigurableProduct\Model\Product\Type\Configurable">
+        <plugin
+            name="use_preloaded_inventory_for_check"
+            type="EcomDev\ConfigurableProductPreloader\Plugin\ConfigurableTypeSalableCheckPlugin"
+        />
+    </type>
+
+    <type name="Magento\Catalog\Pricing\Price\MinimalTierPriceCalculator">
+        <plugin name="use_preloaded_tier_price_information" type="EcomDev\ConfigurableProductPreloader\Plugin\ConfigurableTierPriceCalculatorPlugin" />
+    </type>
+</config>
